@@ -1,17 +1,15 @@
 {
-	"name": "logutil",
-	"version": "1.7.0",
-	"description": "A simple wrapper around spdlog",
-	"homepage": "https://github.com/vtpl1/logutil",
+	"name": "monitorutil",
+	"version": "0.0.1",
+	"description": "A simple wrapper around grpc",
+	"homepage": "https://github.com/vtpl1/monitorutil",
 	"builtin-baseline": "14e7bb4ae24616ec54ff6b2f6ef4e8659434ea44",
 	"dependencies": [
 		{
-			"name": "spdlog",
-			"version>=": "1.10.0"
+			"name": "logutil",
+			"version>=": "1.9.4"
 		},
-		{
-			"name": "fmt",
-			"version>=": "8.1.1#1"
-		}
+		"protobuf",
+		"grpc"
 	]
 }
