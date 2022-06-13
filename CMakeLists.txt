@@ -170,3 +170,6 @@ install(
 		${COMPONENT1_PUBLIC_HEADERS}
 		# ${PROJECT_BINARY_DIR}/version.h
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
+
+add_subdirectory(data_models)
+add_subdirectory(agent)

@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+option java_multiple_files = true;
+option java_package = "com.videonetics.data_models.status.protos";
+option java_outer_classname = "StatusProtos";
+
+package resource;
+
+
+message ThreadStatus {
+  required uint64 id = 1;
+  required uint64 channel_id = 2;
+  required uint64 value = 3;
+  required uint64 last_value = 4;
+  required uint64 last_updated_in_ms = 5;
+}
+
+message ProcessStatus {
+  required uint64 id = 1;
+  required uint64 channel_id = 2;
+  repeated ThreadStatus thread_status = 3;
+}
+
+message MachineStatus {
+  required uint64 id = 1;
+  required uint64 channel_id = 2;
+  repeated ProcessStatus process_status = 3;
+}
+
+message ClusterStatus {
+  required uint64 id = 1;
+  required uint64 channel_id = 2;
+  repeated MachineStatus machine_status = 3;
+}
