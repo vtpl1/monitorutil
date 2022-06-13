@@ -13,6 +13,8 @@ project(monitorutil
 set(COMPONENT1 core)
 find_package(logutil REQUIRED)
 
+option(ENABLE_GRPC "Enable GRPC." OFF)
+
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 

@@ -1,6 +1,8 @@
 // *****************************************************
 //    Copyright 2022 Videonetics Technology Pvt Ltd
 // *****************************************************
+// #include <format>
+#include <fmt/chrono.h>
 #include <iomanip>
 #include <logging.h>
 #include <sstream>
@@ -38,24 +40,6 @@ Monitor::~Monitor()
     it.second.reset();
     it.second = nullptr;
   }
-}
-
-std::string getCurrentTimeStr()
-{
-  std::chrono::system_clock::time_point tp = std::chrono::system_clock::now();
-  std::stringstream ss;
-  auto t = std::chrono::system_clock::to_time_t(tp);
-  // auto tp2 = std::chrono::system_clock::from_time_t(t);
-  // if (tp2 > tp) {
-  //   t = std::chrono::system_clock::to_time_t(tp - std::chrono::seconds(1));
-  // }
-  // ss << std::put_time(std::gmtime(&t), "%Y-%m-%d %H:%M:%S ") << "." << std::setfill('0') << std::setw(3)
-  //    << (std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch()).count() % 1000);
-  ss << std::put_time(std::gmtime(&t), "%F %T ") << "." << std::setfill('0') << std::setw(3)
-     << (std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch()).count() % 1000);
-  return ss.str();
-  // Poco::Timestamp now;
-  // return Poco::DateTimeFormatter::format(now, Poco::DateTimeFormat::SORTABLE_FORMAT);
 }
 
 int64_t getCurrentTimeInMs()
@@ -109,7 +93,6 @@ void write_header_internal(std::shared_ptr<spdlog::logger> logger,
       ss << "app.chn. id   fps|";
     }
     write_header(logger, ss.str());
-    write_log(logger, getCurrentTimeStr());
   }
 
   {

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.videonetics.data_models.monitorservice.protos";
+option java_outer_classname = "MonitorServiceProtos";
+
+package resource;
+import "interfaces/status.proto";
+
+service MonitorService
+{
+    rpc MonitorService(MonitorServiceRequest) returns (MonitorServiceResponse) {}
+}
+
+message MonitorServiceRequest
+{
+    ClusterStatus cluster_status = 1;
+}
+
+message MonitorServiceResponse
+{
+    int64 error_code = 1;
+}

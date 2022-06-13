@@ -11,6 +11,10 @@ target_include_directories(resource_monitor
     PUBLIC include
 )
 
+# target_compile_features(resource_monitor
+#     PUBLIC cxx_std_20
+# )
+
 target_link_libraries(resource_monitor
     PUBLIC protobuf_helper_resource_monitor
     PRIVATE logutil::core
