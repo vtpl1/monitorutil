@@ -2,29 +2,32 @@
 #    Copyright 2022 Videonetics Technology Pvt Ltd
 # *****************************************************
 
-add_library(resource_monitor
+add_library(monitor_agent
     src/monitor.cpp
+
+    src/monitor_service_grpc_caller.cpp
+    src/monitor_service_client.cpp
 )
 
-target_include_directories(resource_monitor
+target_include_directories(monitor_agent
     PRIVATE inc
     PUBLIC include
 )
 
-# target_compile_features(resource_monitor
-#     PUBLIC cxx_std_20
-# )
-
-target_link_libraries(resource_monitor
-    PUBLIC protobuf_helper_resource_monitor
+target_link_libraries(monitor_agent
+    PUBLIC protobuf_helper_monitor
     PRIVATE logutil::core
 )
 
-add_executable(resource_monitor_test
+target_link_libraries(monitor_agent
+    PUBLIC protobuf_grpc_helper_monitor
+)
+
+add_executable(monitor_agent_test
     src/monitor_test.cpp
 )
 
-target_link_libraries(resource_monitor_test
-    PUBLIC resource_monitor
+target_link_libraries(monitor_agent_test
+    PUBLIC monitor_agent
     PRIVATE logutil::core
 )

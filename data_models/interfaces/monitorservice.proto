@@ -9,15 +9,15 @@ import "interfaces/status.proto";
 
 service MonitorService
 {
-    rpc MonitorService(MonitorServiceRequest) returns (MonitorServiceResponse) {}
+    rpc SetStatus(SetStatusRequest) returns (SetStatusResponse) {}
 }
 
-message MonitorServiceRequest
+message SetStatusRequest
 {
     ClusterStatus cluster_status = 1;
 }
 
-message MonitorServiceResponse
+message SetStatusResponse
 {
     int64 error_code = 1;
 }
