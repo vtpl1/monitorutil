@@ -2,12 +2,13 @@
 //    Copyright 2022 Videonetics Technology Pvt Ltd
 // *****************************************************
 
-#include "monitor_service_grpc_caller.h"
-MonitorServiceGrpcCaller::MonitorServiceGrpcCaller(std::shared_ptr<grpc::ChannelInterface> channel)
-    : _stub(resource::MonitorService::NewStub(channel))
+#include "status_service_grpc_caller.h"
+
+StatusServiceGrpcCaller::StatusServiceGrpcCaller(std::shared_ptr<grpc::ChannelInterface> channel)
+    : _stub(resource::StatusService::NewStub(channel))
 {
 }
-int MonitorServiceGrpcCaller::set_status()
+int StatusServiceGrpcCaller::set_status()
 {
   ::grpc::ClientContext context;
   resource::SetStatusRequest request;

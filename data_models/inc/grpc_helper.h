@@ -5,6 +5,6 @@
 #pragma once
 #ifndef protobuf_grpc_helper_h
 #define protobuf_grpc_helper_h
-#include "interfaces/monitorservice.grpc.pb.h"
-#include "interfaces/monitorservice.pb.h"
+#include "interfaces/statusservice.grpc.pb.h"
+#include "interfaces/statusservice.pb.h"
 #endif	// protobuf_grpc_helper_h

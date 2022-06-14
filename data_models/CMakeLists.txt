@@ -3,42 +3,43 @@
 # *****************************************************
 find_package(Protobuf COMPONENTS libprotobuf protoc)
 
-set(PROTOBUF_HELPER_MONITOR_PROTO_FILES
+set(PROTOBUF_HELPER_PROTO_FILES
     interfaces/status.proto
 )
 
 # protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS interfaces/status.proto)
 
-add_library(protobuf_helper_monitor STATIC
+add_library(protobuf_helper STATIC
     src/protobuf_helper.cpp
 
     # ${PROTO_SRCS}
 )
 
-protobuf_generate(TARGET protobuf_helper_monitor
-    PROTOS ${PROTOBUF_HELPER_MONITOR_PROTO_FILES}
+protobuf_generate(TARGET protobuf_helper
+    PROTOS ${PROTOBUF_HELPER_PROTO_FILES}
     LANGUAGE cpp
     GENERATE_EXTENSIONS .pb.h .pb.cc
 )
 
-target_precompile_headers(protobuf_helper_monitor
+target_precompile_headers(protobuf_helper
 #   PUBLIC ${PROTO_HDRS}
-  PUBLIC inc/protobuf_helper.h
+    PUBLIC inc/protobuf_helper.h
 )
 
-target_include_directories(protobuf_helper_monitor
+target_include_directories(protobuf_helper
     PUBLIC inc
     PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_link_libraries(protobuf_helper_monitor
+target_link_libraries(protobuf_helper
     PUBLIC protobuf::libprotobuf
 )
 
 set_target_properties(
-    protobuf_helper_monitor
+    protobuf_helper
     PROPERTIES
          CXX_CLANG_TIDY ""
+         C_CLANG_TIDY ""
 )
 
 
@@ -51,42 +52,46 @@ if (TRUE)
 
 
 
-    set(PROTOBUF_GRPC_HELPER_MONITOR_PROTO_FILES
-        interfaces/monitorservice.proto
+    set(GRPC_HELPER_PROTO_FILES
+        interfaces/statusservice.proto
     )
 
-    add_library(protobuf_grpc_helper_monitor STATIC
-        src/protobuf_grpc_helper.cpp
+    add_library(grpc_helper STATIC
+        src/grpc_helper.cpp
     )
 
-    target_include_directories(protobuf_grpc_helper_monitor
+    target_include_directories(grpc_helper
         PUBLIC inc
         PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
     )
 
-    message(STATUS "MONOTOSH: " ${CMAKE_CURRENT_BINARY_DIR})
-
-    target_link_libraries(protobuf_grpc_helper_monitor
+    target_link_libraries(grpc_helper
         PUBLIC gRPC::grpc
         PUBLIC gRPC::grpc++
-        PUBLIC protobuf_helper_monitor
+        PUBLIC protobuf_helper
     )
 
-    protobuf_generate(TARGET protobuf_grpc_helper_monitor
-        PROTOS ${PROTOBUF_GRPC_HELPER_MONITOR_PROTO_FILES}
+    protobuf_generate(TARGET grpc_helper
+        PROTOS ${GRPC_HELPER_PROTO_FILES}
         LANGUAGE cpp
         GENERATE_EXTENSIONS .pb.h .pb.cc
     )
 
-    protobuf_generate(TARGET protobuf_grpc_helper_monitor
-        PROTOS ${PROTOBUF_GRPC_HELPER_MONITOR_PROTO_FILES}
+    protobuf_generate(TARGET grpc_helper
+        PROTOS ${GRPC_HELPER_PROTO_FILES}
         LANGUAGE grpc
         GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc
         PLUGIN protoc-gen-grpc=${grpc_cpp_plugin_location}
     )
 
-    target_precompile_headers(protobuf_grpc_helper_monitor
-        PUBLIC inc/protobuf_grpc_helper.h
+    target_precompile_headers(grpc_helper
+        PUBLIC inc/grpc_helper.h
     )
 
+    set_target_properties(
+        grpc_helper
+        PROPERTIES
+            CXX_CLANG_TIDY ""
+            C_CLANG_TIDY ""
+    )
 endif ()
