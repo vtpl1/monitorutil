@@ -22,12 +22,3 @@ target_link_libraries(status_service_agent
 target_link_libraries(status_service_agent
     PUBLIC grpc_helper
 )
-
-add_executable(status_service_agent_test
-    src/monitor_test.cpp
-)
-
-target_link_libraries(status_service_agent_test
-    PUBLIC status_service_agent
-    PRIVATE logutil::core
-)

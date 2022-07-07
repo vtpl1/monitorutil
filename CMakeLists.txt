@@ -175,3 +175,4 @@ install(
 
 add_subdirectory(data_models)
 add_subdirectory(agent)
+add_subdirectory(tests)

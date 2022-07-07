@@ -8,6 +8,7 @@
 #include <atomic>
 #include <memory>
 #include <string>
+#include <thread>
 class Status
 {
 public:
@@ -26,10 +27,13 @@ private:
   std::map<std::vector<uint64_t>, std::unique_ptr<Status>> _resource_map;
 
   StatusService(std::string session_folder, std::string target_host_address, uint16_t target_port);
-  ~StatusService() = default;
+  ~StatusService();
 
   std::atomic_uint_fast64_t& setStatusInternal(int16_t app_id, int16_t channel_id, uint64_t thread_id,
                                                uint64_t process_id, uint64_t machine_id, uint64_t cluster_id);
+
+  std::atomic_bool _do_shutdown{false};
+  std::unique_ptr<std::thread> _thread;
 
 public:
   static std::atomic_uint_fast64_t& setStatus(int16_t app_id, int16_t channel_id, uint64_t thread_id);
@@ -38,6 +42,7 @@ public:
   static StatusService& getInstance();
   static StatusService& getInstance(std::string session_folder);
   static StatusService& getInstance(std::string session_folder, std::string target_host_address, uint16_t target_port);
+  void run();
 };
 
 #endif // status_service_h
