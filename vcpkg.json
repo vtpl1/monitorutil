@@ -12,6 +12,7 @@
 		"protobuf",
 		"grpc",
 		"catch2",
-		"poco"
+		"poco",
+        "abseil"
 	]
 }

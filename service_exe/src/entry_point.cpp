@@ -7,11 +7,11 @@
 #include <sstream>
 #include <string_view>
 
-#include "Application.h"
-#include "Version.h"
+// #include "Application.h"
+#include "version.h"
 #include "globalerrorhandler.h"
 #include "logging.h"
-#include "process_runner_service_run.h"
+// #include "process_runner_service_run.h"
 #include "utilities.h"
 #include "version_info.h"
 
@@ -100,9 +100,9 @@ protected:
 
   static void display_info()
   {
-    std::cout << vtpl::version_info::get(APPLICATION_NAME, std::to_string(VERSION_MAJOR), std::to_string(VERSION_MINOR),
-                                         BUILD_NUMBER)
-              << std::endl;
+    // std::cout << vtpl::version_info::get(APPLICATION_NAME, std::to_string(VERSION_MAJOR), std::to_string(VERSION_MINOR),
+    //                                      BUILD_NUMBER)
+    //           << std::endl;
   }
 
 private:
@@ -218,11 +218,11 @@ public:
       number_end = number_start;
     }
 
-    std::unique_ptr<ProcessRunnerServiceRun> process_runner =
-        std::make_unique<ProcessRunnerServiceRun>(get_application_installation_folder(), _base_config_directory_path,
-                                                  _base_data_directory_path, listening_port, number_start, number_end);
+    // std::unique_ptr<ProcessRunnerServiceRun> process_runner =
+    //     std::make_unique<ProcessRunnerServiceRun>(get_application_installation_folder(), _base_config_directory_path,
+    //                                               _base_data_directory_path, listening_port, number_start, number_end);
     waitForTerminationRequest();
-    process_runner->signal_to_stop();
+    // process_runner->signal_to_stop();
     RAY_LOG_INF << "Stopped";
     return Application::EXIT_OK;
   }

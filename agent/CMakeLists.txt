@@ -2,6 +2,8 @@
 #    Copyright 2022 Videonetics Technology Pvt Ltd
 # *****************************************************
 
+find_package(logutil REQUIRED)
+
 add_library(status_service_agent
     src/status_service.cpp
 
