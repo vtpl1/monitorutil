@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "A simple wrapper around grpc",
 	"homepage": "https://github.com/vtpl1/monitorutil",
-	"builtin-baseline": "14e7bb4ae24616ec54ff6b2f6ef4e8659434ea44",
+	"builtin-baseline": "9ba75e6e174b30b97afc5c8c3170c5d25c548b32",
 	"dependencies": [
 		{
 			"name": "logutil",
@@ -11,6 +11,7 @@
 		},
 		"protobuf",
 		"grpc",
-		"catch2"
+		"catch2",
+		"poco"
 	]
 }

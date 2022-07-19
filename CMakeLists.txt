@@ -176,3 +176,5 @@ install(
 add_subdirectory(data_models)
 add_subdirectory(agent)
 add_subdirectory(tests)
+add_subdirectory(service)
+add_subdirectory(service_exe)
