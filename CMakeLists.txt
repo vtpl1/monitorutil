@@ -54,12 +54,12 @@ set_target_properties(
 		SOVERSION	${PROJECT_VERSION_MAJOR}
 		VERSION ${PROJECT_VERSION})
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-set(CMAKE_CXX_CLANG_TIDY
-	clang-tidy;)
-set(CMAKE_C_CLANG_TIDY
-	clang-tidy;)
-endif()
+# if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+# set(CMAKE_CXX_CLANG_TIDY
+# 	clang-tidy;)
+# set(CMAKE_C_CLANG_TIDY
+# 	clang-tidy;)
+# endif()
 
 target_link_libraries(${COMPONENT1}
 	PRIVATE logutil::core)
@@ -178,3 +178,5 @@ add_subdirectory(agent)
 add_subdirectory(tests)
 add_subdirectory(service)
 add_subdirectory(service_exe)
+add_subdirectory(client_exe)
+add_subdirectory(utilities)

@@ -37,7 +37,8 @@
 				"grpc",
 				"catch2",
 				"poco",
-				"abseil"
+				"abseil",
+				"cereal"
 			]
 		}
 	}

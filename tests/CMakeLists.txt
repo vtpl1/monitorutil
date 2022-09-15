@@ -6,6 +6,6 @@ add_executable(tests
 
 target_link_libraries(tests
     PRIVATE Catch2::Catch2WithMain
-    PRIVATE status_service_agent
     PRIVATE logutil::core
+    PRIVATE data_models
 )

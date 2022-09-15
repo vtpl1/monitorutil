@@ -18,6 +18,7 @@ target_include_directories(set_status_service
 target_link_libraries(set_status_service
     PRIVATE gRPC::grpc++
     PRIVATE logutil::core
-    PRIVATE data_models
+    PUBLIC grpc_helper
     PRIVATE Poco::Util
+    PRIVATE utilities
 )

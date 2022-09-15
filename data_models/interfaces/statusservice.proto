@@ -9,15 +9,14 @@ import "interfaces/status.proto";
 
 service StatusService
 {
-    rpc SetStatus(SetStatusRequest) returns (SetStatusResponse) {}
+  rpc SetStatus(SetStatusRequest) returns (SetStatusResponse) {}
 }
 
 message SetStatusRequest
 {
-    ClusterStatus cluster_status = 1;
+  ClusterStatus cluster_status = 1;
+  int64 time_diff = 2;
+  int64 timestamp_sec = 3;
 }
 
-message SetStatusResponse
-{
-    int64 error_code = 1;
-}
+message SetStatusResponse { int64 error_code = 1; }

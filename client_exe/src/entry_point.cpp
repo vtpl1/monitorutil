@@ -10,7 +10,7 @@
 // #include "Application.h"
 #include "globalerrorhandler.h"
 #include "logging.h"
-#include "set_status_service_run.h"
+#include "status_service.h"
 #include "utilities.h"
 #include "version.h"
 #include "version_info.h"
@@ -45,6 +45,9 @@ private:
 
   std::string _host_address{"127.0.0.1"};
   uint32_t _port_number{9800};
+  uint16_t _fps{25};
+
+  std::atomic_bool _do_shutdown{false};
 
   bool _start_playing{true};
 
@@ -91,14 +94,13 @@ protected:
     _name_of_app = config().getString("application.baseName");
     _host_address = config().getString("host_address");
     _port_number = config().getUInt("port_number");
+    _fps = config().getUInt("fps");
     std::string s = vtpl::utilities::end_with_directory_seperator(_base_log_directory_path).str();
     ::ray::RayLog::StartRayLog(_name_of_app, ::ray::RayLogLevel::INFO, s, false);
   }
 
   void defineOptions(Poco::Util::OptionSet& options) override
   {
-    ServerApplication::defineOptions(options);
-
     options.addOption(Poco::Util::Option("host_address", "h", "host address")
                           .required(false)
                           .repeatable(false)
@@ -109,6 +111,11 @@ protected:
                           .repeatable(false)
                           .argument("value")
                           .binding("port_number"));
+    options.addOption(Poco::Util::Option("fps", "f", "frame per second")
+                          .required(false)
+                          .repeatable(false)
+                          .argument("value")
+                          .binding("fps"));
   }
 
   void handleOption(const std::string& name, const std::string& value) override
@@ -212,13 +219,25 @@ public:
     }
   }
 
+  void thread_run(std::atomic_uint_fast64_t& monitor_set_status)
+  {
+    while (!_do_shutdown) {
+      monitor_set_status++;
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000 / _fps));
+    }
+  }
+
   int main(const ArgVec& /*args*/) final
   {
     RAY_LOG_INF << "Started";
-    std::unique_ptr<SetStatusServiceRun> set_status_service_run =
-        std::make_unique<SetStatusServiceRun>(get_session_folder(), _host_address, _port_number);
+    std::atomic_uint_fast64_t& monitor_set_status =
+        StatusService::getInstance(get_session_folder(), _host_address, _port_number).setStatus(207, 1, 1);
+    std::thread _thread = std::thread(&entry_point::thread_run, this, std::ref(monitor_set_status));
     waitForTerminationRequest();
-    set_status_service_run->signal_to_stop();
+    _do_shutdown = true;
+    if (_thread.joinable()) {
+      _thread.join();
+    }
     RAY_LOG_INF << "Stopped";
     return Application::EXIT_OK;
   }

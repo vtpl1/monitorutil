@@ -18,7 +18,8 @@ private:
 public:
   StatusServiceGrpcCaller(std::shared_ptr<grpc::ChannelInterface> channel);
   ~StatusServiceGrpcCaller() = default;
-  int set_status();
+  int set_status(std::shared_ptr<::resource::ClusterStatus> p_cluster_status, int64_t time_diff, int64_t timestamp_sec);
+  uint32_t get_listening_port();
 };
 #endif
 

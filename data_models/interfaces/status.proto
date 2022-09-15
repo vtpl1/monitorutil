@@ -18,21 +18,15 @@ message ThreadStatus {
 
 message ProcessStatus {
   uint64 id = 1;
-  uint64 channel_id = 2;
-  uint64 app_id = 3;
-  repeated ThreadStatus thread_status = 4;
+  repeated ThreadStatus thread_status = 2;
 }
 
 message MachineStatus {
   uint64 id = 1;
-  uint64 channel_id = 2;
-  uint64 app_id = 3;
-  repeated ProcessStatus process_status = 4;
+  repeated ProcessStatus process_status = 2;
 }
 
 message ClusterStatus {
   uint64 id = 1;
-  uint64 channel_id = 2;
-  uint64 app_id = 3;
-  repeated MachineStatus machine_status = 4;
+  repeated MachineStatus machine_status = 2;
 }

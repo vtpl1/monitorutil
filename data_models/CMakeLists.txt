@@ -2,6 +2,7 @@
 #    Copyright 2022 Videonetics Technology Pvt Ltd
 # *****************************************************
 find_package(Protobuf COMPONENTS libprotobuf protoc)
+find_package(cereal REQUIRED)
 
 set(PROTOBUF_HELPER_PROTO_FILES
     interfaces/status.proto
@@ -40,6 +41,18 @@ set_target_properties(
     PROPERTIES
          CXX_CLANG_TIDY ""
          C_CLANG_TIDY ""
+)
+
+add_library(data_models
+    src/data_models.cpp
+)
+
+target_include_directories(data_models
+    PUBLIC inc
+)
+
+target_link_libraries(data_models
+    PUBLIC cereal::cereal
 )
 
 
