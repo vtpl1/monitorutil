@@ -1,18 +1,44 @@
 {
 	"name": "monitorutil",
 	"version": "0.0.1",
+	"port-version": 0,
 	"description": "A simple wrapper around grpc",
 	"homepage": "https://github.com/vtpl1/monitorutil",
 	"builtin-baseline": "9ba75e6e174b30b97afc5c8c3170c5d25c548b32",
+	"license": null,
 	"dependencies": [
 		{
-			"name": "logutil",
-			"version>=": "1.10.0"
+			"name": "vcpkg-cmake-get-vars",
+			"host": true
+		}
+	],
+	"default-features": [
+		"all"
+	],
+	"features": {
+		"basic": {
+			"description": "Basic functions",
+			"dependencies": [
+				{
+					"name": "logutil"
+				}
+			]
 		},
-		"protobuf",
-		"grpc",
-		"catch2",
-		"poco",
-        "abseil"
-	]
+		"all": {
+			"description": "Build with all",
+			"dependencies": [
+				{
+					"name": "monitorutil",
+					"features": [
+						"basic"
+					]
+				},
+				"protobuf",
+				"grpc",
+				"catch2",
+				"poco",
+				"abseil"
+			]
+		}
+	}
 }
