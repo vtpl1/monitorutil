@@ -10,6 +10,14 @@
 		{
 			"name": "vcpkg-cmake-get-vars",
 			"host": true
+		},
+		{
+			"name": "vcpkg-cmake",
+			"host": true
+		},
+		{
+			"name": "vcpkg-cmake-config",
+			"host": true
 		}
 	],
 	"default-features": [
@@ -24,8 +32,8 @@
 				}
 			]
 		},
-		"all": {
-			"description": "Build with all",
+		"grpc": {
+			"description": "Basic functions",
 			"dependencies": [
 				{
 					"name": "monitorutil",
@@ -34,9 +42,46 @@
 					]
 				},
 				"protobuf",
-				"grpc",
+				"grpc"
+			]
+		},
+		"client_exe": {
+			"description": "Client executable for test",
+			"dependencies": [
+				{
+					"name": "monitorutil",
+					"features": [
+						"grpc"
+					]
+				},
+				"poco"
+			]
+		},
+		"server_exe": {
+			"description": "Server executable for test",
+			"dependencies": [
+				{
+					"name": "monitorutil",
+					"features": [
+						"grpc"
+					]
+				},
+				"poco"
+			]
+		},
+		"all": {
+			"description": "Build with all",
+			"dependencies": [
+				{
+					"name": "monitorutil",
+					"features": [
+						"basic",
+						"grpc",
+						"client_exe",
+						"server_exe"
+					]
+				},
 				"catch2",
-				"poco",
 				"abseil"
 			]
 		}
