@@ -21,7 +21,7 @@
 		}
 	],
 	"default-features": [
-		"all"
+		"basic"
 	],
 	"features": {
 		"basic": {
@@ -30,59 +30,6 @@
 				{
 					"name": "logutil"
 				}
-			]
-		},
-		"grpc": {
-			"description": "Basic functions",
-			"dependencies": [
-				{
-					"name": "monitorutil",
-					"features": [
-						"basic"
-					]
-				},
-				"protobuf",
-				"grpc"
-			]
-		},
-		"client_exe": {
-			"description": "Client executable for test",
-			"dependencies": [
-				{
-					"name": "monitorutil",
-					"features": [
-						"grpc"
-					]
-				},
-				"poco"
-			]
-		},
-		"server_exe": {
-			"description": "Server executable for test",
-			"dependencies": [
-				{
-					"name": "monitorutil",
-					"features": [
-						"grpc"
-					]
-				},
-				"poco"
-			]
-		},
-		"all": {
-			"description": "Build with all",
-			"dependencies": [
-				{
-					"name": "monitorutil",
-					"features": [
-						"basic",
-						"grpc",
-						"client_exe",
-						"server_exe"
-					]
-				},
-				"catch2",
-				"abseil"
 			]
 		}
 	}

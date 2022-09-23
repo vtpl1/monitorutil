@@ -32,7 +32,7 @@ add_library(${COMPONENT1}
 
 add_library(${PROJECT_NAME}::${COMPONENT1} ALIAS ${COMPONENT1})
 
-configure_file(inc/version.h.in version.h)
+configure_file(version.h.in version.h)
 
 include(GenerateExportHeader)
 generate_export_header(${COMPONENT1})
@@ -173,8 +173,4 @@ install(
 		# ${PROJECT_BINARY_DIR}/version.h
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
 
-add_subdirectory(data_models)
 add_subdirectory(agent)
-add_subdirectory(tests)
-add_subdirectory(service)
-add_subdirectory(service_exe)

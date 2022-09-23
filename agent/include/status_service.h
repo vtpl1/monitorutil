@@ -9,6 +9,9 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <map>
+#include <vector>
+
 class Status
 {
 public:

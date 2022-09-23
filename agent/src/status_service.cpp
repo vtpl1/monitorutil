@@ -83,12 +83,6 @@ int64_t getCurrentTimeInMs()
       .count();
 }
 
-uint64_t get_unique_id(uint64_t app_id, uint64_t channel_id, uint64_t id)
-{
-  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-  return app_id * 100000 + channel_id * 100 + id;
-}
-
 void write_header_internal(std::shared_ptr<spdlog::logger> logger,
                            std::map<std::vector<uint64_t>, std::unique_ptr<Status>>& resource_map)
 {
@@ -110,14 +104,8 @@ void write_header_internal(std::shared_ptr<spdlog::logger> logger,
 }
 
 void write_data(std::map<std::vector<uint64_t>, std::unique_ptr<Status>>& _resource_map,
-               std::shared_ptr<spdlog::logger> logger, int64_t& last_write_time, size_t& last_map_size)
+                std::shared_ptr<spdlog::logger> logger, int64_t& last_write_time, size_t& last_map_size)
 {
-  ::resource::MachineStatus machine_status;
-  machine_status.set_id(1);
-  machine_status.set_channel_id(1);
-  ::resource::ProcessStatus* p_process_status = machine_status.add_process_status();
-  p_process_status->set_id(1);
-  p_process_status->set_channel_id(1);
   if (last_map_size != _resource_map.size()) {
     write_header_internal(logger, _resource_map);
     last_map_size = _resource_map.size();
@@ -134,12 +122,7 @@ void write_data(std::map<std::vector<uint64_t>, std::unique_ptr<Status>>& _resou
     float diff = ((static_cast<float>(it.second->value) - static_cast<float>(it.second->last_value)) * 1000.0F /
                   static_cast<float>(time_diff));
 
-    ::resource::ThreadStatus* l_p_th = p_process_status->add_thread_status();
-    uint64_t unique_id = get_unique_id(it.first.at(5), it.first.at(4), it.first.at(3));
-    l_p_th->set_id(unique_id);
-    l_p_th->set_channel_id(unique_id);
-    l_p_th->set_value(it.second->value);
-    l_p_th->set_last_value(it.second->last_value);
+    // uint64_t unique_id = get_unique_id(it.first.at(5), it.first.at(4), it.first.at(3));
     // l_p_th->set_last_updated_in_ms(it.second->last_update_time_in_ms);
     it.second->last_value.store(it.second->value);
     ss << fmt::format("{:>17.{}f}|", diff, 1);
